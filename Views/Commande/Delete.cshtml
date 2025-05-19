@@ -1,0 +1,17 @@
+﻿@model WebAppNGS.Models.Commande
+
+@{
+    ViewData["Title"] = "Supprimer commande";
+}
+
+<h2>Supprimer commande</h2>
+
+<p>Client : @Model.Client.Nom</p>
+<p>Produit : @Model.Produit.Nom</p>
+<p>Date : @Model.DateCommande</p>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>

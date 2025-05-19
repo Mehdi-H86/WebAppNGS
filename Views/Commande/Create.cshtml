@@ -1,0 +1,38 @@
+﻿@model WebAppNGS.Models.Commande
+
+@{
+    ViewData["Title"] = "Nouvelle commande";
+    var clients = ViewBag.Clients as List<WebAppNGS.Models.Client> ?? new();
+    var produits = ViewBag.Produits as List<WebAppNGS.Models.Produit> ?? new();
+}
+
+<h2>Nouvelle commande</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="ClientId">Client</label>
+        <select asp-for="ClientId" class="form-control" asp-items="@(new SelectList(clients, "Id", "Nom"))">
+            <option value="">-- Sélectionner --</option>
+        </select>
+        <span asp-validation-for="ClientId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProduitId">Produit</label>
+        <select asp-for="ProduitId" class="form-control" asp-items="@(new SelectList(produits, "Id", "Nom"))">
+            <option value="">-- Sélectionner --</option>
+        </select>
+        <span asp-validation-for="ProduitId" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Créer" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

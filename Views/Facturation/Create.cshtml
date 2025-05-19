@@ -1,0 +1,45 @@
+﻿@model WebAppNGS.Models.Facturation
+
+@{
+    ViewData["Title"] = "Nouvelle facture";
+    var clients = ViewBag.Clients as List<Client> ?? new List<Client>();
+    var commandes = ViewBag.Commandes as List<Commande> ?? new List<Commande>();
+}
+
+<h2>Nouvelle facture</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="ClientId">Client</label>
+        <select asp-for="ClientId" class="form-control">
+            <option value="">-- Sélectionner --</option>
+            @foreach (var c in clients)
+            {
+                <option value="@c.Id">@c.Nom</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="CommandeId">Commande</label>
+        <select asp-for="CommandeId" class="form-control">
+            <option value="">-- Sélectionner --</option>
+            @foreach (var c in commandes)
+            {
+                <option value="@c.Id">
+                    Commande #@c.Id
+                    @(c.Produit != null ? $"({c.Produit.Nom})" : "(Produit inconnu)")
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Montant" class="control-label"></label>
+        <input asp-for="Montant" class="form-control" />
+        <span asp-validation-for="Montant" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Créer" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>

@@ -1,0 +1,55 @@
+﻿@using WebAppNGS.Models;
+@model IEnumerable<WebAppNGS.Models.Facturation>
+@{
+    ViewData["Title"] = "Factures";
+}
+
+<h2>Factures</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-primary">Nouvelle facture</a>
+}
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Commande</th>
+            <th>Montant</th>
+            <th>Date</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Client.Nom</td>
+                <td>Commande #@item.Commande.Id</td>
+                <td>@item.Montant €</td>
+                <td>@item.DateFacture.ToString("yyyy-MM-dd")</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

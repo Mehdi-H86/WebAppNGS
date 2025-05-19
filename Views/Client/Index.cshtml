@@ -1,0 +1,44 @@
+﻿@using WebAppNGS.Models
+@model IEnumerable<WebAppNGS.Models.Client>
+
+@{
+    ViewData["Title"] = "Liste des clients";
+}
+
+<h2>Liste des clients</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ajouter un client</a>
+    </p>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nom</td>
+                <td>@item.Email</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

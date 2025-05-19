@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Administration";
+}
+
+@if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+{
+    <p>Bienvenue Admin. Cette page est accessible uniquement par les utilisateurs avec le rôle <strong>Admin</strong>.</p>
+}
+else
+{
+    <p>Accès refusé. Cette section est réservée aux administrateurs.</p>
+}

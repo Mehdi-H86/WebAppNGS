@@ -1,0 +1,17 @@
+﻿@model WebAppNGS.Models.Produit
+
+@{
+    ViewData["Title"] = "Supprimer";
+}
+
+<h2>Supprimer ce produit ?</h2>
+<div>
+    <h4>@Model.Nom</h4>
+    <p>Prix : @Model.Prix €</p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>

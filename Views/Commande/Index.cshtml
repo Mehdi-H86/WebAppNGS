@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebAppNGS.Models.Commande>
+@{
+    ViewData["Title"] = "Commandes";
+}
+
+<h2>Commandes</h2>
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-primary">Nouvelle commande</a>
+}
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Produit</th>
+            <th>Date</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Client?.Nom</td>
+                <td>@item.Produit?.Nom</td>
+                <td>@item.DateCommande.ToString("yyyy-MM-dd HH:mm")</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

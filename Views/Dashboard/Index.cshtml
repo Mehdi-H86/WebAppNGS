@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Mon Espace";
+}
+
+<h2>Mon Espace</h2>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <p>
+        Bienvenue, @User.Identity?.Name !
+        Cette page est réservée aux rôles <strong>User</strong> et <strong>Admin</strong>.
+    </p>
+}
+else
+{
+    <p>Accès non autorisé. Veuillez vous connecter.</p>
+}
